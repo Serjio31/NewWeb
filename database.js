@@ -10,8 +10,7 @@ module.exports = () => {
             .on('errors', error => reject(error))
             .on('close', () => console.log('Database connection closed.'))
             .on('open', () => {
-                const info = mongoose.connections[0];
-                console.log(`Connected to ${info.host}:${info.port}/${info.name}`);
+                resolve(mongoose.connections[0]);
             });
 
         mongoose.connect(config.MONGO_URL, { useNewUrlParser: true });
