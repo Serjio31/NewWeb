@@ -3,15 +3,16 @@ const Schema = mongoose.Schema;
 
 const schema = new Schema(
     {
-        title:{
+        title: {
             type: String,
             required: true
         },
         body: {
-          type: String
-        },
-    }, {
-        timestamp: true
+            type: String
+        }
+    },
+    {
+        timestamps: true
     }
 );
 

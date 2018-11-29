@@ -8,9 +8,12 @@ const app = express();
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 
-const arr = ['hello', 'world', 'test'];
 
-app.get('/', (req, res) => res.render('index', {arr: arr}));
+app.get('/', (req, res) => {
+  Post.find({}).then(posts => {
+      res.render('index', {posts: posts});
+  });
+});
 
 app.get('/create', (req, res) => res.render('create'));
 

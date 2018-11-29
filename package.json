@@ -7,6 +7,13 @@
     "start": "cross-env PORT=3000 node index.js",
     "dev": "nodemon index.js"
   },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cross-env": "^5.2.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "mongoose": "^5.3.14"
+  },
   "devDependencies": {
     "eslint": "^5.9.0",
     "eslint-config-prettier": "^3.3.0",
@@ -15,14 +22,5 @@
   },
   "engines": {
     "node": ">=6.0.0"
-  },
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "cross-env": "^5.2.0",
-    "ejs": "^2.6.1",
-    "express": "^4.16.4",
-    "mongoose": "^5.3.14",
-    "path": "^0.12.7",
-    "static-asset": "^0.6.0"
   }
 }

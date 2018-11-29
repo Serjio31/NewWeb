@@ -1,19 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Музыка для каждого</title>
-</head>
 
-<body>
-    <a href="/create">Add</a>
-    <ui>
-        <% arr.forEach(function (item) { %>
+<% include layout/header.ejs%>
+
+<a href="/create">Add</a>
+<ui>
+    <% posts.forEach(function (post) { %>
         <li>
-            <%= item %>
+            <b><%= post.title %></b>
+            <br>
+            <%= post.body %>
         </li>
-        <%});%>
-    </ui>
-</body>
+        <br>
+    <% }); %>
+</ui>
 
-</html>
+<% include layout/footer.ejs%>
