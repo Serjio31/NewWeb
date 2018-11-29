@@ -21,7 +21,7 @@
     "cross-env": "^5.2.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
-    "mongoose": "^5.3.13",
+    "mongoose": "^5.3.14",
     "path": "^0.12.7",
     "static-asset": "^0.6.0"
   }
