@@ -441,11 +441,6 @@ core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
   integrity sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
 
-"crc@>=2.0 <3":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/crc/-/crc-2.1.1.tgz#18ebc6327af56b594b1fbf93677dd083807d7803"
-  integrity sha1-GOvGMnr1a1lLH7+TZ33Qg4B9eAM=
-
 create-error-class@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/create-error-class/-/create-error-class-3.0.2.tgz#06be7abef947a3f14a30fd610671d401bca8b7b6"
@@ -1377,6 +1372,11 @@ isobject@^3.0.0, isobject@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
+
+jquery@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
+  integrity sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==
 
 js-tokens@^4.0.0:
   version "4.0.0"
@@ -2384,13 +2384,6 @@ sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
-
-static-asset@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/static-asset/-/static-asset-0.6.0.tgz#f7d1817d8387f27a09f8312427b90ad437b535c0"
-  integrity sha1-99GBfYOH8noJ+DEkJ7kK1De1NcA=
-  dependencies:
-    crc ">=2.0 <3"
 
 static-extend@^0.1.1:
   version "0.1.2"
