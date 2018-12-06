@@ -1,1 +1,1 @@
-// hello!
+$(function(){var n=!0;$(".switch-button").on("click",function(t){t.preventDefault(),n?(n=!1,$(".register").show("slow"),$(".login").hide()):(n=!0,$(".login").show("slow"),$(".register").hide())})});
