@@ -3,18 +3,16 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const staticAsset = require('static-asset');
 const mongoose = require('mongoose');
-const config = require('./config');
-const routes = require('./routes');
 const session = require('express-session');
 
 const MongoStore = require('connect-mongo')(session);
 
+const config = require('./config');
+const routes = require('./routes');
 
-//database
-
+// database
 mongoose.Promise = global.Promise;
 mongoose.set('debug', config.IS_PRODUCTION);
-
 mongoose.connection
     .on('error', error => console.log(error))
     .on('close', () => console.log('Database connection closed.'))
@@ -22,9 +20,9 @@ mongoose.connection
         const info = mongoose.connections[0];
         console.log(`Connected to ${info.host}:${info.port}/${info.name}`);
     });
-mongoose.connect(config.MONGO_URL, {useMongoClient: true});
+mongoose.connect(config.MONGO_URL, { useMongoClient: true });
 
-//express
+// express
 const app = express();
 
 // sessions
@@ -39,9 +37,9 @@ app.use(
     })
 );
 
-//sets and uses
+// sets and uses
 app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(staticAsset(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -50,10 +48,11 @@ app.use(
     express.static(path.join(__dirname, 'node_modules', 'jquery', 'dist'))
 );
 
-//routes
+// routers
 app.get('/', (req, res) => {
     const id = req.session.userId;
     const login = req.session.userLogin;
+
     res.render('index', {
         user: {
             id,
@@ -61,8 +60,8 @@ app.get('/', (req, res) => {
         }
     });
 });
-
 app.use('/api/auth', routes.auth);
+app.use('/post', routes.post);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
