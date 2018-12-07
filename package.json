@@ -9,6 +9,7 @@
     "dev": "gulp & nodemon app.js"
   },
   "dependencies": {
+    "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.18.3",
     "cross-env": "^5.1.1",
     "dotenv": "^6.2.0",
