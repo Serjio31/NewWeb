@@ -5,7 +5,8 @@ $(function() {
     $('.switch-button').on('click', function(e) {
         e.preventDefault();
 
-        $('input').val('');
+        $('input').val('').removeClass(error);
+        $('p.error').remove('');
 
         if (flag) {
             flag = false;
@@ -49,6 +50,37 @@ $(function() {
                 }
             } else {
                 $('.register h2').after('<p class="success">Отлично!</p>');
+            }
+        });
+    });
+
+    //login
+    $('.login-button').on('click', function (e) {
+        e.preventDefault();
+
+        $('input').removeClass(error);
+        $('p.error').remove('');
+
+        var data = {
+            login: $('#login-login').val(),
+            password: $('#login-password').val(),
+        };
+
+        $.ajax({
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            url: '/api/auth/login'
+        }).done(function(data) {
+            if (!data.ok) {
+                $('.login h2').after('<p class="error">' + data.error + '</p>');
+                if (data.fields) {
+                    data.fields.forEach(function(item) {
+                        $('input[name=' + item + ']').addClass('error');
+                    });
+                }
+            } else {
+                $(location).attr('href', '/');
             }
         });
     });

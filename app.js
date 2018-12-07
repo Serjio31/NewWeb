@@ -5,6 +5,10 @@ const staticAsset = require('static-asset');
 const mongoose = require('mongoose');
 const config = require('./config');
 const routes = require('./routes');
+const session = require('express-session');
+
+const MongoStore = require('connect-mongo')(session);
+
 
 //database
 
@@ -23,6 +27,18 @@ mongoose.connect(config.MONGO_URL, {useMongoClient: true});
 //express
 const app = express();
 
+// sessions
+app.use(
+    session({
+        secret: config.SESSION_SECRET,
+        resave: true,
+        saveUninitialized: false,
+        store: new MongoStore({
+            mongooseConnection: mongoose.connection
+        })
+    })
+);
+
 //sets and uses
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
@@ -36,7 +52,14 @@ app.use(
 
 //routes
 app.get('/', (req, res) => {
-    res.render('index');
+    const id = req.session.userId;
+    const login = req.session.userLogin;
+    res.render('index', {
+        user: {
+            id,
+            login
+        }
+    });
 });
 
 app.use('/api/auth', routes.auth);
