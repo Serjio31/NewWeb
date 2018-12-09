@@ -31,7 +31,7 @@ gulp.task('scripts', () =>
             //
         ])
         .pipe(concat('scripts.js'))
-        // .pipe(uglify())
+        .pipe(uglify())
         .pipe(gulp.dest('public/javascripts'))
 );
 
