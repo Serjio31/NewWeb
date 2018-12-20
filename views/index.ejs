@@ -3,42 +3,46 @@
 <div class="main">
     <div class="container">
         <div class="content">
+            <% for (var i = 0; i < posts.length; i++) { %>
             <div class="post">
                 <div class="top">
-                    <h2>Балалайка</h2>
+                    <h2>
+                        <a href="/posts/<%= posts[i].url %>">
+                            <%= posts[i].title %>
+                        </a>
+                    </h2>
                 </div>
                 <div class="body">
-                    <p>
-                        Балала́йка — русский, белорусский народный трёхструнный щипковый музыкальный инструмент с корпусом треугольной формы. Характерными приёмами звукоизвлечения являются бряцание и тремоло — удары указательным пальцем по всем струнам одновременно.
-                    </p>
+                    <p><%= posts[i].body %></p>
                 </div>
                 <div class="bottom">
                     <div class="author">
                         Автор:
-                        <a href="/">Википедия</a>
+                        <a href="/">Гедеван</a>
                     </div>
                     <a href="/">Комментарии</a>
                 </div>
             </div>
-            <div class="post">
-                <div class="top">
-                    <h2>Гитара</h2>
-                </div>
-                <div class="body">
-                    <p>
-                        Гита́ра — струнный щипковый музыкальный инструмент. Применяется в качестве аккомпанирующего или сольного инструмента во многих стилях и направлениях музыки, среди которых романс, блюз, кантри, фламенко, рок, джаз. Изобретённая в XX веке электрическая гитара произвела значительные изменения в музыке и тем самым оказала сильное влияние на массовую культуру.
-                    </p>
-                </div>
-                <div class="bottom">
-                    <div class="author">
-                        Автор:
-                        <a href="/">Википедия</a>
-                    </div>
-                    <a href="/">Комментарии</a>
-                </div>
+            <% } %>
+
+            <div class="pagination">
+                <% if (current > 2) { %>
+                    <a class="new" href="/archive/<%= Number(current) - 1 %>">← К новым</a>
+                <% } %>
+                <% if (current == 2) { %>
+                    <a class="new" href="/">← На главную</a>
+                <% } %>
+                <% if (pages > 0 && current < pages) { %>
+                    <a class="old" href="/archive/<%= Number(current) + 1 %>">К старым →</a>
+                <% } %>
+
             </div>
+
+
         </div>
+
         <% include layout/sidebar.ejs %>
+
     </div>
 </div>
 
