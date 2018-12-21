@@ -44,9 +44,12 @@ const storage = diskStorage({
 
         // write to post
         const uploads = post.uploads;
-        uploads.push(upload.id);
+        uploads.unshift(upload.id);
         post.uploads = uploads;
         await post.save();
+
+        //
+        req.filePath = dir + '/' + fileName;
 
         cb(null, fileName);
     },
@@ -66,7 +69,7 @@ const storage = diskStorage({
 
 const upload = multer({
     storage,
-    limits: {fileSize: 2 * 1024 * 1024},
+    limits: { fileSize: 2 * 1024 * 1024 },
     fileFilter: (req, file, cb) => {
         const ext = path.extname(file.originalname);
         if (ext !== '.jpg' && ext !== '.jpeg' && ext !== '.png') {
@@ -96,7 +99,8 @@ router.post('/image', (req, res) => {
 
         res.json({
             ok: !error,
-            error
+            error,
+            filePath: req.filePath
         });
     });
 });
