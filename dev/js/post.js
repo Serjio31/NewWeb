@@ -1,12 +1,5 @@
 /* eslint-disable no-undef */
 $(function () {
-    // eslint-disable-next-line
-    var editor = new MediumEditor('#post-body', {
-        placeholder: {
-            text: '',
-            hideOnClick: true
-        }
-    });
 
     function removeErrors() {
         $('.post-form p.error').remove();
@@ -15,7 +8,7 @@ $(function () {
 
 
     // clear
-    $('.post-form input, #post-body').on('focus', function() {
+    $('.post-form input, #post-body').on('focus', function () {
         removeErrors()
     });
 
@@ -26,7 +19,7 @@ $(function () {
 
         var data = {
             title: $('#post-title').val(),
-            body: $('#post-body').html()
+            body: $('#post-body').val()
         };
 
         $.ajax({
@@ -49,6 +42,28 @@ $(function () {
             }
         });
     });
+
+    // upload
+    $('#fileinfo').on('submit', function (e) {
+        e.preventDefault();
+
+        var formData = new FormData(this);
+
+        $.ajax({
+            type: 'POST',
+            url: '/upload/image',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (r) {
+                console.log(r);
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    });
+
 });
 
 /* eslint-enable no-undef */
