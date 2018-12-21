@@ -13,7 +13,9 @@ async function posts(req, res) {
     const page = req.params.page || 1;
 
     try {
-        const posts = await models.Post.find({})
+        const posts = await models.Post.find({
+            status: 'published'
+        })
             .skip(perPage * page - perPage)
             .limit(perPage)
             .populate('owner')
@@ -30,7 +32,6 @@ async function posts(req, res) {
                 login: userLogin
             }
         });
-
     } catch (error) {
         throw new Error('Server Error');
     }
@@ -50,20 +51,20 @@ router.get('/posts/:post', async (req, res, next) => {
         err.status = 404;
         next(err);
     } else {
-
         try {
             const post = await models.Post.findOne({
-                url
+                url,
+                status: 'published'
             });
+
             if (!post) {
                 const err = new Error('Not Found');
                 err.status = 404;
                 next(err);
             } else {
-
                 const comments = await models.Comment.find({
                     post: post.id,
-                    parent: { $exists: false }
+                    parent: {$exists: false}
                 });
                 // .populate({
                 //   path: 'children',
@@ -87,10 +88,9 @@ router.get('/posts/:post', async (req, res, next) => {
                     }
                 });
             }
-        } catch (e) {
+        } catch (error) {
             throw new Error('Server Error');
         }
-
     }
 });
 
@@ -128,8 +128,7 @@ router.get('/users/:login/:page*?', async (req, res) => {
                 login: userLogin
             }
         });
-
-    } catch (e) {
+    } catch (error) {
         throw new Error('Server Error');
     }
 });
