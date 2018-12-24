@@ -20,7 +20,10 @@ mongoose.connection
         const info = mongoose.connections[0];
         console.log(`Connected to ${info.host}:${info.port}/${info.name}`);
     });
-mongoose.connect(config.MONGO_URL, { useMongoClient: true });
+mongoose.connect(
+    config.MONGO_URL,
+    { useMongoClient: true }
+);
 
 // express
 const app = express();

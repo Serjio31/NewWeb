@@ -2,7 +2,7 @@
   "ignore": ["node_modules", "dev", "public"],
   "env": {
     "NODE_ENV": "development",
-    "PORT": 3000,
+    "PORT": 3020,
     "MONGO_URL": "mongodb://localhost/blog"
   },
   "ext": ".js,.json",
