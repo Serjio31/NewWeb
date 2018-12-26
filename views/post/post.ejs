@@ -16,7 +16,9 @@
                 <div class="bottom">
                     <div class="author">
                         Автор:
-                        <a href="/">Гедеван</a>
+                        <a href="/users/<%= post.owner.login %>">
+                            <%= post.owner.login %>
+                        </a>
                     </div>
                 </div>
             </div>

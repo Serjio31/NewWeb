@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const models = require('../models');
+const models = require('../../models');
 
 // POST is add
 router.post('/add', async (req, res) => {
@@ -18,13 +18,6 @@ router.post('/add', async (req, res) => {
         const post = req.body.post;
         const body = req.body.body;
         const parent = req.body.parent;
-
-        // if (!body) {
-        //   res.json({
-        //     ok: false,
-        //     error: 'Пустой комментарий'
-        //   });
-        // }
 
         try {
             if (!parent) {
@@ -73,4 +66,4 @@ router.post('/add', async (req, res) => {
     }
 });
 
-module.exports = router;
+module.exports = (app) => app.use('/api/comment', router);

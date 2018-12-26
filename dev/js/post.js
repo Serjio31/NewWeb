@@ -32,7 +32,7 @@ $(function () {
             type: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json',
-            url: '/post/add'
+            url: '/api/post/add'
         }).done(function (data) {
             console.log(data);
             if (!data.ok) {
@@ -43,10 +43,8 @@ $(function () {
                     });
                 }
             } else {
-                // $('.register h2').after('<p class="success">Отлично!</p>');
-                // $(location).attr('href', '/');
                 if (isDraft) {
-                    $(location).attr('href', '/post/edit/' + data.post.id);
+                    $(location).attr('href', '/api/post/edit/' + data.post.id);
                 } else {
                     $(location).attr('href', '/posts/' + data.post.url);
                 }
@@ -64,7 +62,7 @@ $(function () {
 
         $.ajax({
             type: 'POST',
-            url: '/upload/image',
+            url: '/api/upload/image',
             data: formData,
             processData: false,
             contentType: false,

@@ -85,7 +85,6 @@ $(function() {
                     });
                 }
             } else {
-                // $('.login h2').after('<p class="success">Отлично!</p>');
                 $(location).attr('href', '/');
             }
         });

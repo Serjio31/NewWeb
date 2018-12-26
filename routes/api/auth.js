@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt-nodejs');
 
-const models = require('../models');
+const models = require('../../models');
 
 // POST is register
 router.post('/register', (req, res) => {
@@ -53,7 +53,8 @@ router.post('/register', (req, res) => {
                 bcrypt.hash(password, null, null, (err, hash) => {
                     models.User.create({
                         login,
-                        password: hash
+                        password: hash,
+                        group: 'Users'
                     })
                         .then(user => {
                             req.session.userId = user.id;
@@ -118,6 +119,7 @@ router.post('/login', (req, res) => {
                     } else {
                         req.session.userId = user.id;
                         req.session.userLogin = user.login;
+                        req.session.group = user.group;
                         res.json({
                             ok: true
                         });
@@ -146,4 +148,4 @@ router.get('/logout', (req, res) => {
     }
 });
 
-module.exports = router;
+module.exports = (app) => app.use('/api/auth', router);

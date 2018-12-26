@@ -57,7 +57,7 @@ $(function() {
             type: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json',
-            url: '/comment/add'
+            url: '/api/comment/add'
         }).done(function(data) {
             console.log(data);
             if (!data.ok) {
@@ -71,7 +71,7 @@ $(function() {
                     data.login +
                     '">' +
                     data.login +
-                    '</a><spam class="date">Только что</spam></div>' +
+                    '</a><span class="date">Только что</span></div>' +
                     data.body +
                     '</li></ul>';
 

@@ -8,7 +8,6 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
 const config = require('./config');
-const routes = require('./routes');
 
 // database
 mongoose.Promise = global.Promise;
@@ -52,13 +51,9 @@ app.use(
     express.static(path.join(__dirname, 'node_modules', 'jquery', 'dist'))
 );
 
-// routers
 // routes
-app.use('/', routes.archive);
-app.use('/api/auth', routes.auth);
-app.use('/post', routes.post);
-app.use('/comment', routes.comment);
-app.use('/upload', routes.upload);
+
+require('./routes')(app);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

@@ -77,7 +77,8 @@ router.get('/posts/:post', async (req, res, next) => {
             const post = await models.Post.findOne({
                 url,
                 status: 'published'
-            }).populate('uploads');
+            }).populate('uploads')
+                .populate('owner');
 
             if (!post) {
                 const err = new Error('Not Found');
@@ -88,19 +89,7 @@ router.get('/posts/:post', async (req, res, next) => {
                     post: post.id,
                     parent: {$exists: false}
                 });
-                // .populate({
-                //   path: 'children',
-                //   populate: {
-                //     path: 'children',
-                //     populate: {
-                //       path: 'children'
-                //     }
-                //   }
-                // });
 
-                // console.log(comments);
-
-                //
                 const converter = new showdown.Converter();
 
                 let body = post.body;
@@ -150,7 +139,8 @@ router.get('/users/:login/:page*?', async (req, res) => {
             .skip(perPage * page - perPage)
             .limit(perPage)
             .sort({createdAt: -1})
-            .populate('uploads');
+            .populate('uploads')
+            .populate('owner');
 
         const count = await models.Post.count({
             owner: user.id
@@ -189,4 +179,4 @@ router.get('/users/:login/:page*?', async (req, res) => {
     }
 });
 
-module.exports = router;
+module.exports = (app) => app.use('/', router);

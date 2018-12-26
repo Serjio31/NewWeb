@@ -11,6 +11,11 @@ const schema = new Schema(
         password: {
             type: String,
             required: true
+        },
+        group: {
+            type: String,
+            enum: ['Admins', 'Users'],
+            required: true
         }
     },
     {

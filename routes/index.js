@@ -1,13 +1,5 @@
-const auth = require('./auth');
-const post = require('./post');
-const archive = require('./archive');
-const comment = require('./comment');
-const upload = require('./upload');
+const _ = require('underscore');
 
-module.exports = {
-    auth,
-    post,
-    archive,
-    comment,
-    upload
-};
+module.exports = (app) => _(['api', 'archive']).each((path) => {
+    require(`./${path}`)(app)
+});

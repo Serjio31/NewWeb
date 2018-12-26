@@ -5,9 +5,9 @@ const Sharp = require('sharp');
 const multer = require('multer');
 const mkdirp = require('mkdirp');
 
-const config = require('../config');
-const diskStorage = require('../utils/diskStorage');
-const models = require('../models');
+const config = require('../../config');
+const diskStorage = require('../../utils/diskStorage');
+const models = require('../../models');
 
 const rs = () =>
     Math.random()
@@ -105,4 +105,4 @@ router.post('/image', (req, res) => {
     });
 });
 
-module.exports = router;
+module.exports = (app) => app.use('/api/upload', router);

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const tr = require('transliter');
 
-const models = require('../models');
+const models = require('../../models');
 
 // GET for add
 router.get('/edit/:id', async (req, res, next) => {
@@ -17,6 +17,7 @@ router.get('/edit/:id', async (req, res, next) => {
             const post = await models.Post.findById(id).populate('uploads');
 
             if (!post) {
+                console.log("12321");
                 const err = new Error('Not Found');
                 err.status = 404;
                 next(err);
@@ -44,29 +45,24 @@ router.get('/add', async (req, res) => {
         res.redirect('/');
     } else {
         try {
+            console.log('priVeTe');
             const post = await models.Post.findOne({
                 owner: userId,
                 status: 'draft'
             });
 
             if (post) {
-                res.redirect(`/post/edit/${post.id}`);
+                res.redirect(`/api/post/edit/${post.id}`);
             } else {
                 const post = await models.Post.create({
                     owner: userId,
                     status: 'draft'
                 });
-                res.redirect(`/post/edit/${post.id}`);
+                res.redirect(`/api/post/edit/${post.id}`);
             }
         } catch (error) {
             console.log(error);
         }
-        // res.render('post/edit', {
-        //   user: {
-        //     id: userId,
-        //     login: userLogin
-        //   }
-        // });
     }
 });
 
@@ -151,4 +147,4 @@ router.post('/add', async (req, res) => {
     }
 });
 
-module.exports = router;
+module.exports = (app) => app.use('/api/post', router);
