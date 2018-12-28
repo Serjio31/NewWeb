@@ -8,6 +8,7 @@ const models = require('../../models');
 router.get('/edit/:id', async (req, res, next) => {
     const userId = req.session.userId;
     const userLogin = req.session.userLogin;
+    const userGroup = req.session.group;
     const id = req.params.id.trim().replace(/ +(?= )/g, '');
 
     if (!userId || !userLogin) {
@@ -17,7 +18,6 @@ router.get('/edit/:id', async (req, res, next) => {
             const post = await models.Post.findById(id).populate('uploads');
 
             if (!post) {
-                console.log("12321");
                 const err = new Error('Not Found');
                 err.status = 404;
                 next(err);
@@ -27,7 +27,8 @@ router.get('/edit/:id', async (req, res, next) => {
                 post,
                 user: {
                     id: userId,
-                    login: userLogin
+                    login: userLogin,
+                    group: userGroup
                 }
             });
         } catch (error) {
@@ -70,6 +71,7 @@ router.get('/add', async (req, res) => {
 router.post('/add', async (req, res) => {
     const userId = req.session.userId;
     const userLogin = req.session.userLogin;
+    const userGroup = req.session.group;
 
     if (!userId || !userLogin) {
         res.redirect('/');
@@ -108,24 +110,23 @@ router.post('/add', async (req, res) => {
             });
         } else {
             try {
+                const thisPost = await models.Post.findById(postId).populate('owner');
+
                 const post = await models.Post.findOneAndUpdate(
                     {
-                        _id: postId,
-                        owner: userId
+                        _id: postId
                     },
                     {
                         title,
                         body,
                         url,
-                        owner: userId,
+                        owner: thisPost.owner._id,
                         status: isDraft ? 'draft' : 'published'
                     },
                     {new: true}
                 );
 
-                // console.log(post);
-
-                if (!post) {
+                if (!post && userGroup != 'Admins') {
                     res.json({
                         ok: false,
                         error: 'Пост не твой!'
@@ -146,5 +147,6 @@ router.post('/add', async (req, res) => {
         }
     }
 });
+
 
 module.exports = (app) => app.use('/api/post', router);

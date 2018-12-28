@@ -105,4 +105,29 @@ router.post('/image', (req, res) => {
     });
 });
 
+// Delete for upload
+router.delete('/:id', async (req, res, next) => {
+
+    const id = req.params.id;
+    try {
+        const upload = await models.Upload.findById(id);
+
+        if (!upload) {
+            const err = new Error('Not Found');
+            err.status = 404;
+            next(err);
+        }
+        await models.Upload.deleteOne(upload);
+
+        res.json({
+            ok: true
+        });
+
+    } catch (error) {
+        console.log(error);
+    }
+
+});
+
+
 module.exports = (app) => app.use('/api/upload', router);

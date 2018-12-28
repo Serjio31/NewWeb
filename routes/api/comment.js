@@ -66,4 +66,41 @@ router.post('/add', async (req, res) => {
     }
 });
 
+// comment is edit
+router.put('/edit/:id', async (req, res) => {
+    const userId = req.session.userId;
+    const userGroup = req.session.group;
+    const commentId = req.body.commentId;
+    const body = req.body.body;
+    const userLogin = req.session.userLogin;
+
+    const comment = await models.Comment.findById(commentId)
+        .populate('owner');
+
+    if (userId === comment.owner._id || userGroup === 'Admins') {
+        await models.Comment.findByIdAndUpdate(
+            commentId,
+            {
+                comment: body,
+                post: comment.post,
+                parent: comment.parent,
+                owner: comment.owner._id,
+                children: comment.children
+            },
+            {new: true}
+        );
+        res.json({
+            ok: true,
+            body,
+            login: userLogin
+        });
+    } else {
+        res.json({
+            ok: false
+        });
+    }
+
+});
+
+
 module.exports = (app) => app.use('/api/comment', router);

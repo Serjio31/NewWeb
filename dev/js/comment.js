@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-$(function() {
+$(function () {
     var commentForm;
     var parentId;
 
@@ -22,20 +22,44 @@ $(function() {
             $(comment).after(commentForm);
         }
 
-        commentForm.css({ display: 'flex' });
+        commentForm.css({display: 'flex'});
     }
 
-    // load
-    form(true);
+    function editForm(comment) {
+        $('.reply').show();
+        $('.edit').show();
+
+        if (commentForm) {
+            commentForm.remove();
+        }
+
+        commentForm = $('.comment_edit').clone(true, true);
+
+        commentForm.find('textarea').val( $(comment).parent().text());
+
+        parentId = comment.id;
+        $(comment).after(commentForm);
+
+
+        commentForm.css({display: 'flex'});
+    }
+
+    // // load
+    // form(true);
 
     // add form
-    $('.reply').on('click', function() {
+    $('.reply').on('click', function () {
         form(false, this);
         $(this).hide();
     });
 
+    $('.edit').on('click', function () {
+        editForm(this);
+        $(this).hide();
+    });
+
     // add form
-    $('form.comment .cancel').on('click', function(e) {
+    $('form.comment .cancel').on('click', function (e) {
         e.preventDefault();
         commentForm.remove();
         // load
@@ -43,7 +67,7 @@ $(function() {
     });
 
     // publish
-    $('form.comment .send').on('click', function(e) {
+    $('form.comment .send').on('click', function (e) {
         e.preventDefault();
         // removeErrors();
 
@@ -58,7 +82,7 @@ $(function() {
             data: JSON.stringify(data),
             contentType: 'application/json',
             url: '/api/comment/add'
-        }).done(function(data) {
+        }).done(function (data) {
             console.log(data);
             if (!data.ok) {
                 if (data.error === undefined) {
@@ -73,6 +97,7 @@ $(function() {
                     data.login +
                     '</a><span class="date">Только что</span></div>' +
                     data.body +
+                    '<span class="link reply">ответить</span>' +
                     '</li></ul>';
 
                 $(commentForm).after(newComment);

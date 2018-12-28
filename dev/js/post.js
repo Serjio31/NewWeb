@@ -71,7 +71,8 @@ $(function () {
                 $('#fileinfo').prepend(
                     '<div class="img-container"><img src="/uploads' +
                     data.filePath +
-                    '" alt="" /></div>'
+                    '" alt="" /></div>' +
+                    '<div class="close">x</div>'
                 );
             },
             error: function (e) {
@@ -81,8 +82,8 @@ $(function () {
     });
 
     // inserting image
-    $('.img-container').on('click', function () {
-        var imageId = $(this).attr('id');
+    $('.img-container>img').on('click', function () {
+        var imageId = $(this.parentElement).attr('id');
         var txt = $('#post-body');
         var caretPos = txt[0].selectionStart;
         var textAreaTxt = txt.val();
@@ -93,6 +94,28 @@ $(function () {
             textAreaTxt.substring(caretPos)
         );
     });
+
+    $('.close').on('click', function () {
+
+            const el = this;
+            const imageId = $(this.parentElement).attr('id');
+            $.ajax({
+                type: 'DELETE',
+                url: '/api/upload/' + imageId,
+                processData: false,
+                contentType: false,
+                success: function () {
+                    $(el).closest(".img-container").remove();
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        }
+    );
+
+
 });
+
 
 /* eslint-enable no-undef */

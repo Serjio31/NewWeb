@@ -3,16 +3,19 @@
     <% } %>
 
     <% items.forEach(function(item){ %>
-        <li id="<%= item.id %>">
+        <li id="<%= item.id %>" data-test-id="<%= item.body %>">
             <div class="head">
                 <a href="/users/<%= item.owner.login %>">
                     <%= item.owner.login %>
                 </a>
-                <spam class="date">
+                <span class="date">
                     <%= moment(item.createdAt).fromNow(); %>
-                </spam>
+                </span>
             </div>
-            <%= item.body %>
+            <span data-test-id="<%= item.body %>-body"><%= item.body %></span>
+            <% if (item.owner.id === user.id || user.group === 'Admins') { %>
+                <span class="link edit">Редактировать</span>
+            <% } %>
             <span class="link reply">ответить</span>
             <%- include('./comments.ejs', {items: item.children}) %>
         </li>

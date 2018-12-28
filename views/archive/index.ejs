@@ -7,12 +7,12 @@
                 <div class="post">
                     <div class="top">
                         <h2>
-                            <a href="/posts/<%= posts[i].url %>">
+                            <a href="/posts/<%= posts[i].url %>" data-test-id="http://localhost:3020/posts/<%= posts[i].url %>">
                                 <%= posts[i].title %>
                             </a>
-                            <% if (posts[i].owner.login === user.login) { %>
+                            <% if (posts[i].owner.login === user.login || user.group === 'Admins') { %>
                                 <a style="color: black;text-decoration: none;"
-                                   href="/post/edit/<%= posts[i].id %>">✎</a>
+                                   href="/api/post/edit/<%= posts[i].id %>" data-test-id="post-edit">✎</a>
                             <% } %>
                         </h2>
                     </div>

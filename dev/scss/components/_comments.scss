@@ -12,6 +12,27 @@
   }
 
   form.comment {
+    flex-direction: column;
+    max-width: 500px;
+    margin-top: $freeSpace * 0.4;
+
+    textarea {
+      margin-bottom: $freeSpace * 0.8;
+    }
+
+    .buttons {
+      align-self: flex-end;
+      display: flex;
+
+      button {
+        margin-left: $freeSpace;
+        height: 24px;
+        font-size: 0.9em;
+      }
+    }
+  }
+
+  form.comment_edit {
     display: none;
     flex-direction: column;
     max-width: 500px;

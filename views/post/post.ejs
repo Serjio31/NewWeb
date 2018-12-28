@@ -6,11 +6,11 @@
 
             <div class="post">
                 <div class="top">
-                    <h2>
+                    <h2 data-test-id="post-title">
                         <%= post.title %>
                     </h2>
                 </div>
-                <div class="body">
+                <div class="body" data-test-id="post-body">
                     <%- post.body %>
                 </div>
                 <div class="bottom">
@@ -26,16 +26,25 @@
             <div class="comments" id="<%= post.id %>">
                 <h3>Комментарии</h3>
                 <div class="comment-list">
-                    <%- include('../layout/comments.ejs', {items: comments}) %>
+                    <%- include('../layout/comments.ejs', {items: comments, user: user}) %>
 
 
                     <form class="comment">
+                        <textarea name="body" data-test-id="comment-body"></textarea>
+                        <div class="buttons">
+                            <button class="cancel secondary">Отмена</button>
+                            <button class="send" data-test-id="comment-btn-send">Отправить</button>
+                        </div>
+                    </form>
+
+                    <form class="comment_edit">
                         <textarea name="body"></textarea>
                         <div class="buttons">
                             <button class="cancel secondary">Отмена</button>
-                            <button class="send">Отправить</button>
+                            <button class="edit_comment">Отправить</button>
                         </div>
                     </form>
+
                 </div>
             </div>
 

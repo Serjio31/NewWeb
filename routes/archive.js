@@ -10,6 +10,7 @@ const models = require('../models');
 async function posts(req, res) {
     const userId = req.session.userId;
     const userLogin = req.session.userLogin;
+    const userGroup = req.session.group;
     const perPage = +config.PER_PAGE;
     const page = req.params.page || 1;
 
@@ -51,7 +52,8 @@ async function posts(req, res) {
             pages: Math.ceil(count / perPage),
             user: {
                 id: userId,
-                login: userLogin
+                login: userLogin,
+                group: userGroup
             }
         });
     } catch (error) {
@@ -67,6 +69,7 @@ router.get('/posts/:post', async (req, res, next) => {
     const url = req.params.post.trim().replace(/ +(?= )/g, '');
     const userId = req.session.userId;
     const userLogin = req.session.userLogin;
+    const userGroup = req.session.group;
 
     if (!url) {
         const err = new Error('Not Found');
@@ -110,7 +113,8 @@ router.get('/posts/:post', async (req, res, next) => {
                     moment,
                     user: {
                         id: userId,
-                        login: userLogin
+                        login: userLogin,
+                        group: userGroup
                     }
                 });
             }

@@ -7,16 +7,16 @@
                 <h2>Вход</h2>
                 <div class="form-group">
                     <label for="login-login">Логин</label>
-                    <input type="text" id="login-login" name="login"/>
+                    <input type="text" id="login-login" name="login" data-test-id="sidebar-input-username"/>
                 </div>
                 <div class="form-group">
                     <label for="login-password">Пароль</label>
-                    <input type="password" id="login-password" name="password"/>
+                    <input type="password" id="login-password" name="password" data-test-id="sidebar-input-password"/>
                 </div>
 
                 <div class="buttons">
                     <button class="switch-button secondary-inverse">Регистрация</button>
-                    <button class="login-button">Войти</button>
+                    <button class="login-button" data-test-id="sidebar-btn-submit">Войти</button>
                 </div>
             </form>
 
@@ -43,15 +43,22 @@
         <% } else { %>
             <ul>
                 <li>Привет,
-                    <a href="/users/<%= user.login %>">
-                        <%= user.login %>
-                    </a>!
+                    <% if (user.group != 'Admins') { %>
+                        <a href="/users/<%= user.login %>" data-test-id="sidebar-username">
+                            <%= user.login %>
+                        </a>!
+                    <% } else { %>
+                        <a href="/users/<%= user.login %>" data-test-id="sidebar-username">
+                            <%= user.login %> (вы администратор)
+                        </a>!
+                    <% }  %>
+
                 </li>
                 <li>
-                    <a href="/api/post/add">Добавить пост</a>
+                    <a href="/api/post/add" data-test-id="sidebar-btn-post-add">Добавить пост</a>
                 </li>
                 <li>
-                    <a href="/api/auth/logout">Выйти</a>
+                    <a href="/api/auth/logout" data-test-id="sidebar-btn-logout">Выйти</a>
                 </li>
             </ul>
         <% } %>

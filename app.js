@@ -56,11 +56,11 @@ app.use(
 require('./routes')(app);
 
 // catch 404 and forward to error handler
-app.use((req, res, next) => {
-    const err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
+// app.use((req, res, next) => {
+//     const err = new Error('Not Found');
+//     err.status = 404;
+//     next(err);
+// });
 
 // error handler
 // eslint-disable-next-line no-unused-vars

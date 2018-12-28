@@ -92,12 +92,17 @@
     }
 
     .img-container {
+      display: flex;
       height: 50px;
-      border: 1px solid $greyColor;
+
       margin-right: $freeSpace;
 
       img {
         height: 100%;
+      }
+
+      .close {
+        padding: 20px;
       }
     }
   }

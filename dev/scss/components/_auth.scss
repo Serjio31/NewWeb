@@ -1,6 +1,7 @@
 .auth {
   display: flex;
   flex-direction: column;
+  box-sizing: content-box;
 
   h2 {
     margin-top: 0;
