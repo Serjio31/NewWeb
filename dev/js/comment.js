@@ -35,17 +35,19 @@ $(function () {
 
         commentForm = $('.comment_edit').clone(true, true);
 
-        commentForm.find('textarea').val( $(comment).parent().text());
+        var comment_body = $(comment).parent().children('.comment-body');
 
-        parentId = comment.id;
+        commentForm.find('textarea').val( comment_body.text());
+
+        parentId = $(comment).parent().attr('id');
+
         $(comment).after(commentForm);
-
 
         commentForm.css({display: 'flex'});
     }
 
-    // // load
-    // form(true);
+     // load
+     form(true);
 
     // add form
     $('.reply').on('click', function () {
@@ -105,4 +107,40 @@ $(function () {
             }
         });
     });
+
+    // edit
+    $('form.comment_edit .edit_comment').on('click', function (e) {
+        e.preventDefault();
+        // removeErrors();
+
+        var data = {
+            body: commentForm.find('textarea').val(),
+            commentId: parentId
+        };
+
+        $.ajax({
+            type: 'PUT',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            url: '/api/comment/edit/' + parentId
+        }).done(function (data) {
+            console.log(data);
+            if (!data.ok) {
+                if (data.error === undefined) {
+                    data.error = 'Неизвестная ошибка!';
+                }
+                $(commentForm).prepend('<p class="error">' + data.error + '</p>');
+            } else {
+                var comment_body = $(commentForm).parent().children('.comment-body');
+                comment_body.text(data.body);
+                $('.edit').show();
+                form(true);
+            }
+        });
+    });
+
+
+
+
+
 });

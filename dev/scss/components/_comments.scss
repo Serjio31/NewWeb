@@ -12,6 +12,7 @@
   }
 
   form.comment {
+    display: none;
     flex-direction: column;
     max-width: 500px;
     margin-top: $freeSpace * 0.4;

@@ -3,9 +3,9 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const staticAsset = require('static-asset');
 const mongoose = require('mongoose');
-const session = require('express-session');
 
-const MongoStore = require('connect-mongo')(session);
+
+
 
 const config = require('./config');
 
@@ -26,6 +26,9 @@ mongoose.connect(
 
 // express
 const app = express();
+
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 // sessions
 app.use(

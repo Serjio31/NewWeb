@@ -103,7 +103,7 @@ router.post('/login', (req, res) => {
             login
         }).then(user => {
             if (!user) {
-                res.json({
+                res.status(400).json({
                     ok: false,
                     error: 'Логин и пароль неверны!',
                     fields: ['login', 'password']

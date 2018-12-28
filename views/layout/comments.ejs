@@ -12,7 +12,7 @@
                     <%= moment(item.createdAt).fromNow(); %>
                 </span>
             </div>
-            <span data-test-id="<%= item.body %>-body"><%= item.body %></span>
+            <span class="comment-body" data-test-id="<%= item.body %>-body"><%= item.body %></span>
             <% if (item.owner.id === user.id || user.group === 'Admins') { %>
                 <span class="link edit">Редактировать</span>
             <% } %>

@@ -4,7 +4,7 @@ const tr = require('transliter');
 
 const models = require('../../models');
 
-// GET for add
+// GET for edit
 router.get('/edit/:id', async (req, res, next) => {
     const userId = req.session.userId;
     const userLogin = req.session.userLogin;
@@ -46,7 +46,6 @@ router.get('/add', async (req, res) => {
         res.redirect('/');
     } else {
         try {
-            console.log('priVeTe');
             const post = await models.Post.findOne({
                 owner: userId,
                 status: 'draft'
@@ -62,7 +61,10 @@ router.get('/add', async (req, res) => {
                 res.redirect(`/api/post/edit/${post.id}`);
             }
         } catch (error) {
-            console.log(error);
+            res.json({
+                ok: false,
+                error: error
+            });
         }
     }
 });

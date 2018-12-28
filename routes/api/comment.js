@@ -80,13 +80,7 @@ router.put('/edit/:id', async (req, res) => {
     if (userId === comment.owner._id || userGroup === 'Admins') {
         await models.Comment.findByIdAndUpdate(
             commentId,
-            {
-                comment: body,
-                post: comment.post,
-                parent: comment.parent,
-                owner: comment.owner._id,
-                children: comment.children
-            },
+            {$set: {body}},
             {new: true}
         );
         res.json({

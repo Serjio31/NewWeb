@@ -7,7 +7,11 @@
             <div class="post">
                 <div class="top">
                     <h2 data-test-id="post-title">
-                        <%= post.title %>
+                        <span><%= post.title %> </span>
+                        <% if (post.owner.login === user.login || user.group === 'Admins') { %>
+                            <a style="color: black;text-decoration: none;"
+                               href="/api/post/edit/<%= post.id %>" data-test-id="post-edit">✎</a>
+                        <% } %>
                     </h2>
                 </div>
                 <div class="body" data-test-id="post-body">
